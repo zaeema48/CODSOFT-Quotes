@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="@dimen/_15sdp"
     android:elevation="@dimen/_8sdp"
-    android:layout_margin="@dimen/_8sdp">
+    android:layout_margin="@dimen/_12sdp">
 
     <RelativeLayout
         android:id="@+id/quoteCard"
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:textColor="@color/black"
             android:text="Quotes that inspire you, motivates you and educated you Quotes that inspire you, motivates you and educated you Quotes that inspire you, motivates you and educated you"
             android:textSize="@dimen/_10ssp" />
 

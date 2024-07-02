@@ -8,6 +8,7 @@ public class Model {
     public Model(String quote, String category) {
         this.quote = quote;
         this.category = category;
+        this.fav=false;
     }
 
     public String getQuote() {

@@ -1,6 +1,7 @@
 package com.example.quotes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             likeBtn = itemView.findViewById(R.id.likeBtn);
         }
     }
+
     Context context;
-    ArrayList<Model>modelClassArrayList;
+    ArrayList<Model> modelClassArrayList;
+
     public RecyclerAdapter(Context context, ArrayList<Model> modelClassArrayList) {
         this.context = context;
         this.modelClassArrayList = modelClassArrayList;
@@ -41,16 +44,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Layout inflator converts the xml into actual views
-        View view= LayoutInflater.from(context).inflate(R.layout.quote_layout, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.quote_layout, null, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
+        holder.quotes.setText(modelClassArrayList.get(position).getQuote());
+        holder.category.setText(modelClassArrayList.get(position).getCategory());
 
+        if(modelClassArrayList.get(position).isFav()==true){
+            holder.likeBtn.setImageResource(R.drawable.liked);
+        }
+        else{
+            holder.likeBtn.setImageResource(R.drawable.unlike);
+        }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(context, QuotePage.class);
+                //you have to pass data
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return modelClassArrayList.size();
     }
+}
