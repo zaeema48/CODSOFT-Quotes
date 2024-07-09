@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/_15sdp"
-    android:elevation="@dimen/_8sdp"
-    android:layout_margin="@dimen/_12sdp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/quoteCard"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:padding="@dimen/_15sdp">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/quotes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:textColor="@color/black"
-            android:text="Quotes that inspire you, motivates you and educated you Quotes that inspire you, motivates you and educated you Quotes that inspire you, motivates you and educated you"
-            android:textSize="@dimen/_10ssp" />
+        <RelativeLayout
+            android:id="@+id/quoteCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="@dimen/_15sdp">
 
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textSize="@dimen/_10ssp"
-            android:layout_below="@id/quotes"
-            android:layout_marginTop="@dimen/_9sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:textStyle="italic"/>
+            <TextView
+                android:id="@+id/quotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/black"
+                android:text="Quotes that inspire you, motivates you and educated you Quotes that inspire you, motivates you and educated you Quotes that inspire you, motivates you and educated you"
+                android:textSize="@dimen/_10ssp" />
 
-        <ImageView
-            android:id="@+id/likeBtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/unlike"
-            android:layout_below="@id/quotes"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_200sdp"/>
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="@dimen/_10ssp"
+                android:layout_below="@id/quotes"
+                android:layout_marginTop="@dimen/_9sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:textStyle="italic"/>
 
-        <ImageView
-            android:id="@+id/shareBtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/share"
-            android:layout_below="@id/quotes"
-            android:layout_marginLeft="@dimen/_225sdp"
-            android:layout_marginTop="@dimen/_9sdp"/>
+            <ImageView
+                android:id="@+id/likeBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/unlike"
+                android:layout_below="@id/quotes"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_200sdp"/>
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/shareBtn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/share"
+                android:layout_below="@id/quotes"
+                android:layout_marginLeft="@dimen/_225sdp"
+                android:layout_marginTop="@dimen/_9sdp"/>
 
-</androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

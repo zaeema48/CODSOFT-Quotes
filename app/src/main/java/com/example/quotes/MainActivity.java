@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quotes.roomDB.AppDB;
+
 import java.util.ArrayList;
 
  public class MainActivity extends AppCompatActivity {
@@ -20,6 +22,13 @@ import java.util.ArrayList;
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        private AppDB db;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            setContentView(R.Layout.quote_layout);
+        }
 
         //Setting adapter to recycler view
         EditText editText=findViewById(R.id.search_bar);

@@ -41,6 +41,8 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.2.0-alpha01")
     implementation "com.airbnb.android:lottie:3.7.0" //lottie files
     implementation 'androidx.recyclerview:recyclerview:1.2.1' //recyler view
+    implementation 'androidx.room:room-runtime:2.4.3' //for room database
+    annotationProcessor 'androidx.room:room-compiler:2.4.3'
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

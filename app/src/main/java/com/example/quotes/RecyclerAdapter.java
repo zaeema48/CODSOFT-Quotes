@@ -21,7 +21,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         TextView quotes, category;
         CardView cardView;
-        ImageView likeBtn;
+        ImageView likeBtn, shareBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -29,6 +29,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             category = itemView.findViewById(R.id.category);
             cardView = itemView.findViewById(R.id.cardView);
             likeBtn = itemView.findViewById(R.id.likeBtn);
+            shareBtn=itemView.findViewById(R.id.shareBtn);
         }
     }
 
@@ -60,14 +61,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.likeBtn.setImageResource(R.drawable.unlike);
         }
 
+
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (modelClassArrayList.get(position).isFav()) {
+                    holder.likeBtn.setImageResource(R.drawable.unlike);
+                    modelClassArrayList.get(position).setFav(false);
+                } else {
+                    holder.likeBtn.setImageResource(R.drawable.liked);
+                    modelClassArrayList.get(position).setFav(true);
+                }
+            }
+        });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent= new Intent(context, QuotePage.class);
-                //you have to pass data
+                // Passing data to the new activity
+                intent.putExtra("quote", modelClassArrayList.get(position).getQuote());
+                intent.putExtra("category", modelClassArrayList.get(position).getCategory());
+                intent.putExtra("isFav", modelClassArrayList.get(position).isFav());
                 context.startActivity(intent);
             }
         });
+
     }
 
     @Override
