@@ -12,22 +12,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quotes.roomDB.AppDB;
+import com.example.quotes.roomDB.MyApplication;
 
 import java.util.ArrayList;
+import java.util.List;
 
  public class MainActivity extends AppCompatActivity {
-
+     private AppDB db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        private AppDB db;
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
-            setContentView(R.Layout.quote_layout);
+            setContentView(R.layout.activity_main);
+
+            MyApplication app = (MyApplication) getApplication();
+            db = app.db;
+
+            Thread(() -> {
+            List<Model> users = db.Dao().getAll();
+            for (Model quote : quotesList) {
+                System.out.println(quote.getQuote());
+                System.out.println(quote.getCategory());
+                System.out.println(quote.isFav());
+
+            }
+        }).start();
         }
 
         //Setting adapter to recycler view
