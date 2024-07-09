@@ -24,20 +24,6 @@ import java.util.List;
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            MyApplication app = (MyApplication) getApplication();
-            db = app.db;
-
-            Thread(() -> {
-            List<Model> users = db.Dao().getAll();
-            for (Model quote : quotesList) {
-                System.out.println(quote.getQuote());
-                System.out.println(quote.getCategory());
-                System.out.println(quote.isFav());
-
-            }
-        }).start();
-        }
-
         //Setting adapter to recycler view
         EditText editText=findViewById(R.id.search_bar);
         RecyclerView recyclerView=findViewById(R.id.recyclerView);
@@ -60,6 +46,22 @@ import java.util.List;
 
         RecyclerAdapter adapter= new RecyclerAdapter(this, quotesList);     //3.
         recyclerView.setAdapter(adapter);   //4.
+
+
+        MyApplication app = (MyApplication) getApplication();
+            db = app.db;
+
+            new Thread(() -> {
+            List<Model> quoteList = db.dao().getAll();
+            for (Model quote : quotesList) {
+                System.out.println(quote.getQuote());
+                System.out.println(quote.getCategory());
+                System.out.println(quote.isFav());
+
+            }
+        }).start();
+        }
+
 
     }
 }
