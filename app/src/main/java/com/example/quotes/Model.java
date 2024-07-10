@@ -1,14 +1,24 @@
 package com.example.quotes;
 
 public class Model {
+    private int qid;
    private String quote;
     private String category;
     private  boolean fav;
 
-    public Model(String quote, String category) {
+    public Model(int qid, String quote, String category) {
+        this.qid = qid;
         this.quote = quote;
         this.category = category;
         this.fav=false;
+    }
+
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
     }
 
     public String getQuote() {
