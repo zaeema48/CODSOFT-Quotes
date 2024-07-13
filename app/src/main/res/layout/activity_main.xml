@@ -27,31 +27,72 @@
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search your Quotes"
-            android:textSize="@dimen/_15ssp"
-            android:maxLines="1"
-            android:background="#9DA5CE"
-            android:drawableRight="@drawable/search"
-            android:inputType="text"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textStyle="italic"
-            android:layout_marginTop="@dimen/_64sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"/>
+    <TextView
+        android:id="@+id/addBtn"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginTop="@dimen/_23sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:drawableLeft="@drawable/add_box_24"
+        android:text=""/>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:padding="@dimen/_5sdp"
+    <EditText
+        android:id="@+id/searchQuerry"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_bar"/>
+        android:layout_height="@dimen/_34sdp"
+        android:hint="Search your Quotes"
+        android:textSize="@dimen/_14ssp"
+        android:maxLines="1"
+        android:background="#9DA5CE"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textStyle="italic"
+        android:layout_marginTop="@dimen/_64sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_50sdp"/>
+    <ImageView
+        android:id="@+id/searchBtn"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:background="#9DA5CE"
+        android:layout_marginTop="@dimen/_64sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/_21sdp"
+        android:padding="@dimen/_5sdp"
+        android:src="@drawable/search"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchBtn">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:padding="@dimen/_5sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/searchQuerry"/>
+
+            <TextView
+                android:id="@+id/randomBtn"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:background="#2196F3"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
+                android:text="RANDOM"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/_15ssp"/>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

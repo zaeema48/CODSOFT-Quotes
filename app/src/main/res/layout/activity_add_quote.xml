@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddQuote">
+
+    <EditText
+        android:id="@+id/quoteText1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:background="#D7D3D3"
+        android:padding="@dimen/_10sdp"
+        android:hint="Enter the Quoute..."
+        android:textSize="@dimen/_13ssp"
+        android:textColor="@color/black"
+        android:textStyle="italic"
+        android:gravity="top"
+        android:textColorHint="@color/black"/>
+
+    <EditText
+        android:id="@+id/categoryText1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_below="@id/quoteText1"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:maxLines="1"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:padding="@dimen/_10sdp"
+        android:hint="Enter Category..."
+        android:textSize="@dimen/_13ssp"
+        android:textColor="@color/black"
+        android:gravity="top"
+        android:textStyle="italic"
+        android:textColorHint="@color/black"/>
+
+    <TextView
+        android:id="@+id/submit"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="#2196F3"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:text="SUBMIT"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_15ssp"/>
+
+
+</RelativeLayout>

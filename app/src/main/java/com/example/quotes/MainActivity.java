@@ -1,121 +1,105 @@
 package com.example.quotes;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.concurrent.ExecutorService;
+
 import com.example.quotes.roomDB.AppDB;
-import com.example.quotes.roomDB.MyApplication;
+import com.example.quotes.roomDB.Quote;
+import com.example.quotes.roomDB.QuotesDao;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private AppDB db;
+    private QuotesDao quotesDao;
+    public static RecyclerAdapter adapter;
+    public static List<Quote>quotesList;
 
+    private ExecutorService executorService; //chat-gpt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setting adapter to recycler view
-        EditText editText = findViewById(R.id.search_bar);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        ArrayList<Model> quotesList = new ArrayList<>();
+        TextView addBtn= findViewById(R.id.addBtn);
+        TextView randomBtn=findViewById(R.id.randomBtn);
 
-        // Dummy data for testing
-        quotesList.add(new Model(1, "Happiness is not something readymade; it comes from your own actions.", "Motivational"));
-        quotesList.add(new Model(2, "Education is the most powerful weapon which you can use to change the world.", "Educational"));
-        quotesList.add(new Model(3, "We cannot solve problems with the kind of thinking we employed when we came up with them", "Inspiring"));
-        quotesList.add(new Model(4, "Happiness is not something readymade; it comes from your own actions.", "Motivational"));
-        quotesList.add(new Model(5, "Education is the most powerful weapon which you can use to change the world.", "Educational"));
-        quotesList.add(new Model(6, "We cannot solve problems with the kind of thinking we employed when we came up with them", "Inspiring"));
+        //Setting adapter to recycler view
+        EditText searchQuerry=findViewById(R.id.searchQuerry);
+        ImageView searchBtn=findViewById(R.id.searchBtn);
+        RecyclerView recyclerView=findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));   //1.
+        quotesList= new ArrayList<>();  //2.
+        db=AppDB.getInstance(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerAdapter adapter = new RecyclerAdapter(this, quotesList);
-        recyclerView.setAdapter(adapter);
 
-        // Initialize database from Application class
-        MyApplication app = (MyApplication) getApplication();
-        db = app.db;
+//        Quote model1=new Quote("Happiness is not something readymade; it comes from your own actions.", "Motivational");
+//        Quote model2= new Quote("Education is the most powerful weapon which you can use to change the world.", "Educational");
+//        Quote model3= new Quote("We cannot solve problems with the kind of thinking we employed when we came up with them", "Inspiring");
+//        Quote model4=new Quote("Happiness is not something readymade; it comes from your own actions.", "Motivational");
+//        Quote model5= new Quote("Education is the most powerful weapon which you can use to change the world.", "Educational");
+//        Quote model6= new Quote("We cannot solve problems with the kind of thinking we employed when we came up with them", "Inspiring");
 
-        new Thread(() -> {
-            List<Model> quoteList = db.dao().getAll();
-            for (Model quote : quoteList) {
-                System.out.println(quote.getQuote());
-                System.out.println(quote.getCategory());
-                System.out.println(quote.isFav());
+        quotesDao=db.quotesdao();
+        quotesList=quotesDao.getRandom();
+
+
+        adapter= new RecyclerAdapter(this, quotesList);     //3.
+        recyclerView.setAdapter(adapter);   //4.
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, AddQuote.class);
+                startActivity(intent);
+                adapter.notifyDataSetChanged();
+//                finish();
             }
-        }).start();
+        });
+
+        executorService = Executors.newSingleThreadExecutor();
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String search=searchQuerry.getText().toString();
+
+                if(!search.isEmpty()){
+                    List<Quote> tempList=new ArrayList<>();
+                    tempList.addAll(quotesList);
+                    executorService.execute(() -> {
+                        quotesList.clear();
+                        quotesList.addAll(quotesDao.searchQuote("%"+search+"%"));
+                        runOnUiThread(() -> {
+                            adapter.notifyDataSetChanged();
+                        });
+                    });
+
+                }
+            }
+        });
+
+        randomBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quotesList.clear();
+                quotesList.addAll(quotesDao.getRandom());
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
+
 }
-
-
-
-
-// package com.example.quotes;
-//
-//import android.os.Bundle;
-//import android.widget.EditText;
-//
-//import androidx.activity.EdgeToEdge;
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.core.graphics.Insets;
-//import androidx.core.view.ViewCompat;
-//import androidx.core.view.WindowInsetsCompat;
-//import androidx.recyclerview.widget.LinearLayoutManager;
-//import androidx.recyclerview.widget.RecyclerView;
-//
-//import com.example.quotes.roomDB.AppDB;
-//import com.example.quotes.roomDB.MyApplication;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-// public class MainActivity extends AppCompatActivity {
-//     private AppDB db;
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_main);
-//
-//        //Setting adapter to recycler view
-//        EditText editText=findViewById(R.id.search_bar);
-//        RecyclerView recyclerView=findViewById(R.id.recyclerView);
-//        ArrayList<Model>quotesList= new ArrayList<>();  //2.
-//        Model model1=new Model(1, "Happiness is not something readymade; it comes from your own actions.", "Motivational");
-//        Model model2= new Model(2, "Education is the most powerful weapon which you can use to change the world.", "Educational");
-//        Model model3= new Model(3, "We cannot solve problems with the kind of thinking we employed when we came up with them", "Inspiring");
-//        Model model4=new Model(4, "Happiness is not something readymade; it comes from your own actions.", "Motivational");
-//        Model model5= new Model(5, "Education is the most powerful weapon which you can use to change the world.", "Educational");
-//        Model model6= new Model(6, "We cannot solve problems with the kind of thinking we employed when we came up with them", "Inspiring");
-//
-//        quotesList.add(model1);
-//        quotesList.add(model2);
-//        quotesList.add(model3);
-//        quotesList.add(model4);
-//        quotesList.add(model5);
-//        quotesList.add(model6);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));   //1.
-//
-//        RecyclerAdapter adapter= new RecyclerAdapter(this, quotesList);     //3.
-//        recyclerView.setAdapter(adapter);   //4.
-//
-//
-//        MyApplication app = (MyApplication) getApplication();
-//            db = app.db;
-//
-//            new Thread(() -> {
-//            List<Model> quoteList = db.dao().getAll();
-//            for (Model quote : quotesList) {
-//                System.out.println(quote.getQuote());
-//                System.out.println(quote.getCategory());
-//                System.out.println(quote.isFav());
-//
-//            }
-//        }).start();
-//        }
-//
-//
-//    }
